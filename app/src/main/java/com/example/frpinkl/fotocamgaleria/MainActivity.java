@@ -37,6 +37,8 @@ public class MainActivity extends ActionBarActivity {
 
     String codeFoto;
 
+    Button btnEnviar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,18 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v){
                 selectImage();
+            }
+        });
+
+        btnEnviar = (Button) findViewById(R.id.btnEnviar);
+
+        btnEnviar.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intentFoto = new Intent(MainActivity.this, email.class);
+                intentFoto.putExtra("ahivalafoto", codeFoto);
+                startActivityForResult(intentFoto,1);
             }
         });
 
@@ -95,6 +109,8 @@ public class MainActivity extends ActionBarActivity {
         });
         builder.show();
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -157,6 +173,7 @@ public class MainActivity extends ActionBarActivity {
                 BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
                 ivImage.setImageBitmap(bm);
+
             }
         }
     }
