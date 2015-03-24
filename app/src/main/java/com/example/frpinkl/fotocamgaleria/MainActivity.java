@@ -76,7 +76,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
+        final CharSequence[] items = { "Take Photo", /*"Choose from Library",*/
                 "Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -94,15 +94,15 @@ public class MainActivity extends ActionBarActivity {
 
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
                     startActivityForResult(intent, REQUEST_CAMERA);
-                } else if (items[item].equals("Choose from Library")) {
+                } /*else if (items[item].equals("Choose from Library")) {
                     Intent intent = new Intent(
                             Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    intent.setType("image/*");
+                    intent.setType("image*//*");
                     startActivityForResult(
                             Intent.createChooser(intent, "Select File"),
                             SELECT_FILE);
-                } else if (items[item].equals("Cancel")) {
+                }*/ else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
             }
@@ -165,7 +165,7 @@ public class MainActivity extends ActionBarActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else if (requestCode == SELECT_FILE) {
+            } /*else if (requestCode == SELECT_FILE) {
                 Uri selectedImageUri = data.getData();
 
                 String tempPath = getPath(selectedImageUri, MainActivity.this);
@@ -174,7 +174,7 @@ public class MainActivity extends ActionBarActivity {
                 bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
                 ivImage.setImageBitmap(bm);
 
-            }
+            }*/
         }
     }
 

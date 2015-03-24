@@ -26,7 +26,9 @@ public class email extends ActionBarActivity implements OnClickListener {
     Button btnSend, btnAttachment;
     String codeFoto2, email, subject, message, attachmentFile;
     Uri URI = null;
-    private static final int PICK_FROM_GALLERY = 101;
+    private static final int RESULT_LOAD_IMG = 1;
+    String imgDecodableString;
+
     int columnIndex;
 
     @Override
@@ -43,12 +45,13 @@ public class email extends ActionBarActivity implements OnClickListener {
         btnAttachment.setOnClickListener(this);
 
 
+        //mirar esto bien
         Intent intentFoto2 = getIntent();
         codeFoto2 = (String) intentFoto2.getSerializableExtra("ahivalafoto");
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PICK_FROM_GALLERY && resultCode == RESULT_OK) {
+       /* if (requestCode == PICK_FROM_GALLERY && resultCode == RESULT_OK) {
 
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
@@ -59,20 +62,44 @@ public class email extends ActionBarActivity implements OnClickListener {
             attachmentFile = cursor.getString(columnIndex);
             Log.e("Attachment Path:", attachmentFile);
             URI = Uri.parse("file://" + attachmentFile);
+            cursor.close();*/
+
+
+        if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK && null != data) {
+            // Get the Image from data
+
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            // Get the cursor
+            Cursor cursor = getContentResolver().query(selectedImage,filePathColumn, null, null, null);
+            // Move to first row
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            imgDecodableString = cursor.getString(columnIndex);
+
+            Log.e("Attachment Path:", imgDecodableString);
+            URI = Uri.parse("file://" + imgDecodableString);
+
             cursor.close();
+            //ImageView imgView = (ImageView) findViewById(R.id.imgView);
+            // Set the Image in ImageView after decoding the String
+            // imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
 
-            
-
-
-
+        } else {
+            Toast.makeText(this, "You haven't picked Image",
+                    Toast.LENGTH_LONG).show();
         }
+
+
     }
 
     @Override
     public void onClick(View v) {
 
         if (v == btnAttachment) {
-            openGallery();
+            loadImagefromGallery();
 
         }
         if (v == btnSend) {
@@ -105,18 +132,38 @@ public class email extends ActionBarActivity implements OnClickListener {
 
     }
 
-    public void openGallery() {
+    /*public void openGallery() {
         Intent intent = new Intent();
-        intent.setType("image/*");
+        intent.setType("image*//*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.putExtra("return-data", true);
-        startActivityForResult(
-                Intent.createChooser(intent, "Complete action using"),
-                PICK_FROM_GALLERY);
+        startActivityForResult(Intent.createChooser(intent, "Complete action using"),PICK_FROM_GALLERY);
 
+    }*/
+
+
+
+    public void loadImagefromGallery() {
+        // Create intent to Open Image applications like Gallery, Google Photos
+        Intent galleryIntent = new Intent();
+        galleryIntent.setType("image*//*");
+         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+        /*
+        el Action_get_content va mejor que el
+
+         */
+
+
+        /*
+         el Action_get_content mejor que el action_pick. el action_pic
+         es específico para imágenes y el get_content para cualquier tipo
+        entonces no dejaba explorar los archivo en general, sólo podía adjuntar fotos de la galería de imágenes
+         Start the Intent
+         */
+
+
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
     }
-
-
-
 
 }
