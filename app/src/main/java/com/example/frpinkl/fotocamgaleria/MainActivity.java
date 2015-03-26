@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
     public static final int SELECT_FILE = 1;
     ImageView ivImage;
     Button btnSelectPhoto1;
-
+    Button btnGps;
     String codeFoto;
 
     Button btnEnviar;
@@ -58,6 +59,21 @@ public class MainActivity extends ActionBarActivity {
         });
 
         btnEnviar = (Button) findViewById(R.id.btnEnviar);
+
+        btnGps = (Button) findViewById(R.id.btnGps);
+
+        btnGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                if(!provider.contains("gps")) {
+                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                }
+
+            }
+        });
 
         btnEnviar.setOnClickListener(new View.OnClickListener(){
 
