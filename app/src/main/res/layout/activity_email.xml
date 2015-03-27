@@ -11,51 +11,78 @@
         android:layout_margin="5dp"
         android:padding="5dp" >
 
-        <EditText
-            android:id="@+id/editTextTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="5dp"
-            android:hint="Email Address!"
-            android:inputType="textEmailAddress"
-            android:singleLine="true" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-        <EditText
-            android:id="@+id/editTextSubject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/editTextTo"
-            android:layout_margin="5dp"
-            android:hint="Subject"
-            android:singleLine="true" />
+        </RelativeLayout>
 
-        <EditText
-            android:id="@+id/editTextMessage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/editTextSubject"
-            android:layout_margin="5dp"
-            android:gravity="top|left"
-            android:hint="type message here!"
-            android:inputType="textMultiLine" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-        <Button
-            android:id="@+id/buttonSend"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/editTextMessage"
-            android:layout_margin="5dp"
-            android:text="Send" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-        <Button
-            android:id="@+id/buttonAttachment"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="attachment" />
+                <EditText
+                    android:id="@+id/editTextTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="5dp"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true"
+                    android:text="pacevedopereira@danielcastelao.org"/>
+
+                <EditText
+                    android:id="@+id/editTextSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editTextTo"
+                    android:layout_margin="5dp"
+                    android:text="Incidencia"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/editTextMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@id/editTextSubject"
+                    android:layout_margin="5dp"
+                    android:gravity="top|left"
+                    android:hint="Escribe el mensaje aquí"
+                    android:inputType="textMultiLine" />
+
+                <Button
+                    android:id="@+id/buttonAttachment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Adjuntar" />
+
+                <Button
+                    android:id="@+id/buttonSend"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/editTextMessage"
+                    android:layout_margin="5dp"
+                    android:text="Enviar" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </ScrollView>

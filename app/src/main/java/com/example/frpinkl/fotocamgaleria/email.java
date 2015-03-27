@@ -51,29 +51,16 @@ public class email extends ActionBarActivity implements OnClickListener {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       /* if (requestCode == PICK_FROM_GALLERY && resultCode == RESULT_OK) {
 
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-
-            Cursor cursor = getContentResolver().query(selectedImage,filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            attachmentFile = cursor.getString(columnIndex);
-            Log.e("Attachment Path:", attachmentFile);
-            URI = Uri.parse("file://" + attachmentFile);
-            cursor.close();*/
 
 
         if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK && null != data) {
-            // Get the Image from data
+
 
             Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
-            // Get the cursor
             Cursor cursor = getContentResolver().query(selectedImage,filePathColumn, null, null, null);
-            // Move to first row
             cursor.moveToFirst();
 
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -83,12 +70,10 @@ public class email extends ActionBarActivity implements OnClickListener {
             URI = Uri.parse("file://" + imgDecodableString);
 
             cursor.close();
-            //ImageView imgView = (ImageView) findViewById(R.id.imgView);
-            // Set the Image in ImageView after decoding the String
-            // imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+
 
         } else {
-            Toast.makeText(this, "You haven't picked Image",
+            Toast.makeText(this, "No adjuntaste imagen",
                     Toast.LENGTH_LONG).show();
         }
 
@@ -121,7 +106,7 @@ public class email extends ActionBarActivity implements OnClickListener {
                 emailIntent
                         .putExtra(android.content.Intent.EXTRA_TEXT, message);
                 this.startActivity(Intent.createChooser(emailIntent,
-                        "Sending email..."));
+                        "Enviando email..."));
 
             } catch (Throwable t) {
                 Toast.makeText(this,
@@ -132,35 +117,24 @@ public class email extends ActionBarActivity implements OnClickListener {
 
     }
 
-    /*public void openGallery() {
-        Intent intent = new Intent();
-        intent.setType("image*//*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra("return-data", true);
-        startActivityForResult(Intent.createChooser(intent, "Complete action using"),PICK_FROM_GALLERY);
 
-    }*/
 
 
 
     public void loadImagefromGallery() {
-        // Create intent to Open Image applications like Gallery, Google Photos
+        // intent para abrir el navegador y seleccionar la foto
         Intent galleryIntent = new Intent();
         galleryIntent.setType("image*//*");
          galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
         /*
-        el Action_get_content va mejor que el
-
-         */
-
-
-        /*
          el Action_get_content mejor que el action_pick. el action_pic
          es específico para imágenes y el get_content para cualquier tipo
-        entonces no dejaba explorar los archivo en general, sólo podía adjuntar fotos de la galería de imágenes
+         entonces no dejaba explorar los archivo en general, sólo podía adjuntar fotos de la galería de imágenes
          Start the Intent
+
          */
+
 
 
         startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
