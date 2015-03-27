@@ -92,8 +92,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", /*"Choose from Library",*/
-                "Cancel" };
+        final CharSequence[] items = { "Take Photo", "Cancel" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Add Photo!");
@@ -110,15 +109,7 @@ public class MainActivity extends ActionBarActivity {
 
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
                     startActivityForResult(intent, REQUEST_CAMERA);
-                } /*else if (items[item].equals("Choose from Library")) {
-                    Intent intent = new Intent(
-                            Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    intent.setType("image*//*");
-                    startActivityForResult(
-                            Intent.createChooser(intent, "Select File"),
-                            SELECT_FILE);
-                }*/ else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
             }
@@ -153,16 +144,13 @@ public class MainActivity extends ActionBarActivity {
                     bm = BitmapFactory.decodeFile(f.getAbsolutePath(),
                             btmapOptions);
 
-                    // bm = Bitmap.createScaledBitmap(bm, 70, 70, true);
                     ivImage.setImageBitmap(bm);
 
                     String path = android.os.Environment
                             .getExternalStorageDirectory()
                             + File.separator
                             + "Phoenix" + File.separator + "default";
-                    //String path = "/storage/sdcard0/DCIM";
 
-                    //f.delete();
                     OutputStream fOut = null;
                     File file = new File(path, String.valueOf(System
                             .currentTimeMillis()) + ".jpg");
@@ -181,16 +169,7 @@ public class MainActivity extends ActionBarActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } /*else if (requestCode == SELECT_FILE) {
-                Uri selectedImageUri = data.getData();
-
-                String tempPath = getPath(selectedImageUri, MainActivity.this);
-                Bitmap bm;
-                BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
-                bm = BitmapFactory.decodeFile(tempPath, btmapOptions);
-                ivImage.setImageBitmap(bm);
-
-            }*/
+            }
         }
     }
 
@@ -202,17 +181,6 @@ public class MainActivity extends ActionBarActivity {
 
         return photoCode;
     }
-
-
-    public String getPath(Uri uri, Activity activity) {
-        String[] projection = { MediaStore.MediaColumns.DATA };
-        Cursor cursor = activity
-                .managedQuery(uri, projection, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(column_index);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
